@@ -1,0 +1,18 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor & IDE temporary files
+*.swp
+*.swo
+*~
+*.bak
+
+# TI CCS / C2000 temporary build artifacts (if testing code locally)
+Debug/
+Release/
+*.obj
+*.d
+*.pp
+.launches/
