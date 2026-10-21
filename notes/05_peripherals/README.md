@@ -2,20 +2,20 @@
 
 本目录记录 C2000 面向数字电源与电机控制的核心外设原理、寄存器配置与典型应用链路。
 
-## 📝 推荐笔记规划
+## 📚 笔记目录
 
-- `01_gpio_and_xbar.md`
-  - GPIO 多路复用 (Mux)、上下拉、输入限定滤波 (Qualification / 采样窗消抖)
-  - Input X-BAR、Output X-BAR、ePWM X-BAR 信号内部路由矩阵
-- `02_epwm_deep_dive.md`
-  - 7 大子模块拆解：时基 (TB)、计数比较 (CC)、动作限定 (AQ)、死区 (DB)、斩波 (PC)、事件触发 (ET)、错误联防/封波保护 (TZ & DC)
-  - 移相控制、变频变占空比影子寄存器 (Shadow Register) 更新时机
-- `03_adc_and_cmpss.md`
-  - 多路独立 ADC (ADCA~ADCD)、12-bit 单端 vs 16-bit 差分模式
-  - SOC (Start-of-Conversion) 触发源与轮询优先级、PPB (后处理块：零点偏移校准、越界硬件比较、触发延时记录)
-  - CMPSS (片上模拟比较器 + 内置 DAC + 斜坡发生器 + 数字滤波) 与 ePWM 硬件异步直连保护 (OST / CBC)
-- `04_ecap_and_eqep.md`
-  - eCAP 脉宽/频率捕获
-  - eQEP 正交编码器测速（M 法 / T 法实现）与位置计数
-- `05_communications.md`
-  - SCI (UART) FIFO 中断收发、SPI、I2C、CAN / MCAN 通信笔记
+1. **[01_gpio_and_xbar.md](./01_gpio_and_xbar.md)**
+   - GPIO 二级复用机制 (`GPxGMUX` + `GPxMUX`) 与 `SET`/`CLEAR`/`TOGGLE` 原子操作防读-改-写竞争
+   - 硬件输入限定滤波 (Input Qualification 3/6 采样窗消抖) 与三大 X-BAR（Input / Output / ePWM X-BAR）路由矩阵
+2. **[02_epwm_deep_dive.md](./02_epwm_deep_dive.md)**
+   - ePWM 七大子模块信号流向、增计数 vs 增减对称计数的周期 `TBPRD` 与占空比计算公式
+   - 死区模块 `AHC` 互补对称模式与影子寄存器单周期双更新（Double Update）技术
+3. **[03_adc_and_cmpss.md](./03_adc_and_cmpss.md)**
+   - ADC 通道与 SOC 解耦架构、四路独立 ADC 多相电流同步采样技巧
+   - **CMPSS + ePWM X-BAR + ePWM DC/TZ 纯硬件微秒级双向过流封波全链路**（附完整 DriverLib 代码模板）
+4. **[04_ecap_and_eqep.md](./04_ecap_and_eqep.md)**
+   - eCAP 四级时间戳差分模式测量外部 PWM 频率与占空比
+   - eQEP 正交编码器四倍频位置计数与高速 M 法 / 低速 T 法测速硬件原理
+5. **[05_communications.md](./05_communications.md)**
+   - SCI (UART) 波特率计算、16 级 FIFO 与 `RXERROR` 锁死软件复位自愈
+   - SPI 极性/相位命名对照表与左对齐移位 (`<< 8`) 注意事项、DCAN 32 邮箱对象收发机制
